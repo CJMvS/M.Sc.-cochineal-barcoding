@@ -1,0 +1,173 @@
+\documentclass[12pt]{report}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{setspace}
+\usepackage{verbatim}
+\usepackage{fancyhdr}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+   {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-20pt}{40pt}
+
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyheadoffset[RO]{0.12in}
+\fancyhead[L]{\fontsize{10}{12}}
+
+\usepackage[hyphens]{url}
+\usepackage[size=small, labelfont=bf]{caption}
+\captionsetup{singlelinecheck=false}
+
+\usepackage[english]{babel}
+\addto{\captionsenglish}{%
+  \renewcommand{\bibname}{References}
+} % this changes the title of the refs from 'Bibliography' to 'References'
+
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{color}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{listings} % for inserting R code
+\usepackage{textcomp} % for altering quotation style
+\lstset{frame=single, %tb for top and bottom
+  language=R,
+  literate=~{$\sim$}2,
+  basicstyle=\ttfamily, % this changes the font of the code to allow quotation marks to display the correct way around
+  breaklines=true,
+  breakatwhitespace=true,
+  showstringspaces=false,
+  columns=fullflexible,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  commentstyle= \color{red},
+  numbers=left, % or none
+  numberstyle=\tiny\color{gray},
+  stringstyle=\color{darkblue},
+  keywordstyle=\color{dkgreen}, 
+  tabsize=2,
+  upquote = true
+}
+\usepackage[round]{natbib}   % omit 'round' option if you prefer square brackets
+
+\usepackage{array}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ textwidth=175mm,
+ top=15mm,
+ hmarginratio=1:1
+ }
+\setcounter{tocdepth}{3}
+\usepackage{supertabular}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=darkblue,
+    citecolor = black,
+}
+
+\usepackage{nomencl}
+\makenomenclature
+\renewcommand{\nomname}{Abbreviations, Symbols, and Units}
+%% This code creates the groups
+% -----------------------------------------
+\usepackage{etoolbox}
+\renewcommand\nomgroup[1]{%
+  \item[\bfseries
+  \ifstrequal{#1}{A}{Abbreviations}{%
+  \ifstrequal{#1}{U}{Units}{%
+  \ifstrequal{#1}{S}{Symbols}{}}}%
+]}
+% -----------------------------------------
+\usepackage[moderate]{savetrees}
+
+\begin{document}
+%\pagenumbering{gobble}
+
+%\pagestyle{plain} % removes headers from title page etc.
+\doublespacing
+
+\begin{titlepage}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale = 0.2]{Images/Rhodes_logo.png}
+    
+\end{figure}
+
+{\centering
+{\Huge
+\hrulefill \\
+\textbf{A genetic analysis of the species and intraspecific lineages of \textit{Dactylopius} Costa (Hemiptera: Dactylopiidae)}\\
+\hrulefill \\
+\vspace{0.5cm}
+{\large By}\\
+{\Large \textbf{Clarke van Steenderen}}\\
+\vspace{1cm}}
+
+{\vspace{0.5cm}}
+{\Large A thesis submitted in fulfilment of the requirements for the degree of Masters in Entomology} \\
+
+\vspace{0.5cm}
+{\large Department of Zoology and Entomology} \\
+{\large Centre for Biological Control} \\
+\vspace{0.5cm}
+{\large December 2019} \\
+}
+
+\end{titlepage}
+
+\chapter*{}
+\pagenumbering{roman}
+
+\textbf{\large{This thesis is dedicated to my loving mother, \\
+Thea, \\
+who has always encouraged and loved me unconditionally}} 
+
+\input{Declaration.tex}
+
+\begin{flushright}
+\rule{5cm}{0.4pt} \\
+Clarke van Steenderen \\
+December 2019
+\end{flushright}
+
+\input{Acknowledgments.tex}
+\input{Abbreviations.tex}
+
+\addtolength{\topmargin}{1cm}
+\input{Abstract.tex}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+\pagestyle{fancy}
+
+\pagenumbering{arabic}
+\input{Chapter01.tex}
+\input{Chapter02}
+\input{Chapter03}
+\input{Chapter04}
+
+\pagestyle{plain} % removes headers from the references
+
+\addcontentsline{toc}{chapter}{References}
+\begin{singlespacing}
+\bibliography{refs}
+\bibliographystyle{myplainnat} % this is a copied and altered version of the original plainnat.bst file. It's under C drive -> program files -> MikTex -> Bibtex -> bst -> natbib. You open the original file in notepad, and search for all instances of "et~al.". You replace this with " \emph{et~al.}". And then you refer to that new file (which I called myplainnat_withitalics) in your bibliography command
+\end{singlespacing}
+
+
+\input{Appendix1.tex}
+\input{Appendix2.tex}
+
+\end{document}
